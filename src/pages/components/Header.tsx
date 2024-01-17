@@ -24,19 +24,24 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import Autocomplete from '@mui/material/Autocomplete';
+import { top100Films } from './InputSearchSuggestion';
+import { TextField } from '@mui/material';
+
 
 const Search = styled('div')(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     position: 'relative',
-    borderRadius: theme.shape.borderRadius,
+    // borderRadius: theme.shape.borderRadius,
+    borderRadius: "20px",
     backgroundColor: alpha(theme.palette.common.white, 0.15),
     '&:hover': {
         backgroundColor: alpha(theme.palette.common.white, 0.25),
     },
     marginRight: theme.spacing(2),
     marginLeft: 0,
-    padding: "0 8px",
+    padding: "0 10px",
     width: '100%',
     [theme.breakpoints.up('sm')]: {
         marginLeft: theme.spacing(3),
@@ -94,7 +99,6 @@ export default function PrimarySearchAppBar() {
         setAnchorEl(null);
         handleMobileMenuClose();
     };
-
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
@@ -173,7 +177,7 @@ export default function PrimarySearchAppBar() {
     console.log('inputText:', inputText);
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, zIndex: "10" }}>
             <AppBar position="static" color='transparent' sx={{ color: "white" }}>
                 <Toolbar>
                     <IconButton
@@ -198,17 +202,38 @@ export default function PrimarySearchAppBar() {
                     </Box>
                     <Search>
                         <SearchIcon />
+                        {/* 
+                        <Autocomplete
+                            sx={{ width: "full" }}
+                            freeSolo
+                            id="free-solo-2-demo"
+                            disableClearable
+                            options={top100Films.map((option) => option.title)}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Search…"
+                                    InputProps={{
+                                        ...params.InputProps,
+                                        type: 'search',
+                                    }}
+                                />
+                            )}
+                        /> */}
                         <StyledInputBase
                             placeholder="Search…"
                             inputProps={{ 'aria-label': 'search' }}
                             onChange={(e) => setInputText(e.target.value)}
                             value={inputText}
                         />
+
+
                         <CloseOutlinedIcon
                             sx={{ fontSize: 18, cursor: "pointer", marginRight: "4px", visibility: `${inputText ? "" : "hidden"}` }}
                             onClick={() => setInputText("")}
                         />
                         <TuneIcon sx={{ fontSize: 20 }} />
+
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
