@@ -40,16 +40,20 @@ const theme = createTheme({
         danger: "#e53e3e",
     },
     palette: {
-        // primary: {
-        //     main: colors.teal[400],
-        // },
+        primary: {
+            main: '#1976d2',
+            light: '#42a5f5',
+            dark: colors.grey[900],
+            contrastText: '#fff',
+        },
         secondary: {
             main: colors.orange[500],
         },
         neutral: {
             main: colors.grey[500],
             darker: colors.grey[700],
-        }
+        },
+
     },
 })
 

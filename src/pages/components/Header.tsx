@@ -20,8 +20,14 @@ import Image from 'next/image';
 import gmailIcon from "../../assets/gmail.svg"
 import profileImage from "../../assets/profile.jpg"
 import Avatar from '@mui/material/Avatar';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
+import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
 const Search = styled('div')(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -30,6 +36,7 @@ const Search = styled('div')(({ theme }) => ({
     },
     marginRight: theme.spacing(2),
     marginLeft: 0,
+    padding: "0 8px",
     width: '100%',
     [theme.breakpoints.up('sm')]: {
         marginLeft: theme.spacing(3),
@@ -40,30 +47,33 @@ const Search = styled('div')(({ theme }) => ({
 const SearchIconWrapper = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 2),
     height: '100%',
-    position: 'absolute',
+    // position: 'absolute',
     pointerEvents: 'none',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
 }));
 
+
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
         // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+        paddingLeft: `calc(1em + ${theme.spacing(0)})`,
         transition: theme.transitions.create('width'),
         width: '100%',
         [theme.breakpoints.up('md')]: {
             width: '20ch',
         },
+        // border: "2px solid red"
     },
 }));
 
 export default function PrimarySearchAppBar() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [inputText, setInputText] = React.useState<string>("");
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -160,9 +170,11 @@ export default function PrimarySearchAppBar() {
         </Menu>
     );
 
+    console.log('inputText:', inputText);
+
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar position="static" color='transparent' sx={{ color: "white" }}>
                 <Toolbar>
                     <IconButton
                         size="large"
@@ -185,22 +197,27 @@ export default function PrimarySearchAppBar() {
                         </Typography>
                     </Box>
                     <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
+                        <SearchIcon />
                         <StyledInputBase
                             placeholder="Search…"
                             inputProps={{ 'aria-label': 'search' }}
+                            onChange={(e) => setInputText(e.target.value)}
+                            value={inputText}
                         />
-                        <SearchIconWrapper>
-                            <TuneIcon />
-                        </SearchIconWrapper>
+                        <CloseOutlinedIcon
+                            sx={{ fontSize: 18, cursor: "pointer", marginRight: "4px", visibility: `${inputText ? "" : "hidden"}` }}
+                            onClick={() => setInputText("")}
+                        />
+                        <TuneIcon sx={{ fontSize: 20 }} />
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                            <HelpOutlineOutlinedIcon />
+                        </IconButton>
+                        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                             <Badge badgeContent={4} color="error">
-                                <MailIcon />
+                                <SettingsOutlinedIcon />
                             </Badge>
                         </IconButton>
                         <IconButton
@@ -208,13 +225,18 @@ export default function PrimarySearchAppBar() {
                             aria-label="show 17 new notifications"
                             color="inherit"
                         >
-                            <Badge badgeContent={17} color="error">
-                                <NotificationsIcon />
-                            </Badge>
+                            <AppsOutlinedIcon />
                         </IconButton>
-                        <Avatar alt="Profile-Image" src="../../assets/profile.jpg" />
+
+                        <IconButton
+                            sx={{ padding: 0 }}
+                            aria-controls={menuId}
+                            onClick={handleProfileMenuOpen}
+                        >
+                            <Avatar src={profileImage.src} alt="Profile-Image" />
+                        </IconButton>
                     </Box>
-                    {/* <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
                             aria-label="show more"
@@ -222,10 +244,11 @@ export default function PrimarySearchAppBar() {
                             aria-haspopup="true"
                             onClick={handleMobileMenuOpen}
                             color="inherit"
+                            sx={{ padding: 0 }}
                         >
-                            <MoreIcon />
+                            <Avatar src={profileImage.src} alt="Profile-Image" />
                         </IconButton>
-                    </Box> */}
+                    </Box>
                 </Toolbar>
             </AppBar>
             {renderMobileMenu}
