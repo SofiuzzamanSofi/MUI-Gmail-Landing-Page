@@ -46,8 +46,7 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can also start editing server side the page by modifying `src/server.ts`. The page auto-updates as you edit the file.
-You can start editing clinet side the page by modifying `src/main.tsx`. The page auto-updates as you edit the file.
+You can also start editing side the page by modifying `src/pages/_app.ts`. The page auto-updates as you edit the file.
 
 <br/>
 
@@ -55,7 +54,7 @@ You can start editing clinet side the page by modifying `src/main.tsx`. The page
 
 
 client side:
-<br> • `NextJS`
+<br> • `NextJS - (page route)`
 <br> • `Typescript`
 <br> • `MUI (MaterialUI)`
 
