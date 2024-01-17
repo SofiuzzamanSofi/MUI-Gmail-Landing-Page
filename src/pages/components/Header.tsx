@@ -11,10 +11,15 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import TuneIcon from '@mui/icons-material/Tune';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import Image from 'next/image';
+import gmailIcon from "../../assets/gmail.svg"
+import profileImage from "../../assets/profile.jpg"
+import Avatar from '@mui/material/Avatar';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -58,14 +63,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function PrimarySearchAppBar() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
-        React.useState<null | HTMLElement>(null);
+    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
     const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
+    };
+
+    const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+        setMobileMoreAnchorEl(event.currentTarget);
     };
 
     const handleMobileMenuClose = () => {
@@ -77,9 +85,6 @@ export default function PrimarySearchAppBar() {
         handleMobileMenuClose();
     };
 
-    const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-        setMobileMoreAnchorEl(event.currentTarget);
-    };
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
@@ -109,13 +114,13 @@ export default function PrimarySearchAppBar() {
             anchorEl={mobileMoreAnchorEl}
             anchorOrigin={{
                 vertical: 'top',
-                horizontal: 'right',
+                horizontal: 'left',
             }}
             id={mobileMenuId}
             keepMounted
             transformOrigin={{
                 vertical: 'top',
-                horizontal: 'right',
+                horizontal: 'left',
             }}
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
@@ -168,14 +173,17 @@ export default function PrimarySearchAppBar() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
-                    >
-                        MUI
-                    </Typography>
+                    <Box sx={{ display: 'flex', alignItems: "center" }}>
+                        <Image style={{ height: "2rem" }} src={gmailIcon} alt='gmail-icon' />
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{ display: { xs: 'none', sm: 'block' }, }}
+                        >
+                            Gmail
+                        </Typography>
+                    </Box>
                     <Search>
                         <SearchIconWrapper>
                             <SearchIcon />
@@ -184,6 +192,9 @@ export default function PrimarySearchAppBar() {
                             placeholder="Search…"
                             inputProps={{ 'aria-label': 'search' }}
                         />
+                        <SearchIconWrapper>
+                            <TuneIcon />
+                        </SearchIconWrapper>
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -201,19 +212,9 @@ export default function PrimarySearchAppBar() {
                                 <NotificationsIcon />
                             </Badge>
                         </IconButton>
-                        <IconButton
-                            size="large"
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <AccountCircle />
-                        </IconButton>
+                        <Avatar alt="Profile-Image" src="../../assets/profile.jpg" />
                     </Box>
-                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                    {/* <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
                             aria-label="show more"
@@ -224,7 +225,7 @@ export default function PrimarySearchAppBar() {
                         >
                             <MoreIcon />
                         </IconButton>
-                    </Box>
+                    </Box> */}
                 </Toolbar>
             </AppBar>
             {renderMobileMenu}

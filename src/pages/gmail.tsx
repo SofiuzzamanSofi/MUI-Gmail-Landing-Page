@@ -11,7 +11,7 @@ interface gmailProps {
 
 const gmail: FC<gmailProps> = ({ }) => {
     return (
-        <Box className='' sx={{ border: 0 }}>
+        <Box className='' sx={{ border: 1 }}>
             <PrimarySearchAppBar />
             <ResponsiveAppBar />
             <div>
