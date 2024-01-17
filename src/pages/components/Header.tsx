@@ -177,7 +177,7 @@ export default function PrimarySearchAppBar() {
     console.log('inputText:', inputText);
 
     return (
-        <Box sx={{ flexGrow: 1, zIndex: "10" }}>
+        <Box sx={{ flexGrow: 1, zIndex: 7 }}>
             <AppBar position="static" color='transparent' sx={{ color: "white" }}>
                 <Toolbar>
                     <IconButton
